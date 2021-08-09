@@ -88,6 +88,7 @@ struct pt {
   do {                                                                         \
     (pt)->label = __LINE__;                                                    \
     (pt)->status = (stat);                                                     \
+    __attribute__ ((fallthrough));                                             \
   case __LINE__:;                                                              \
   } while (0)
 #define pt_end(pt)                                                             \
@@ -175,5 +176,7 @@ struct pt {
           (errno = 0) ||                                                       \
               !(((call) == -1) && (errno == EAGAIN || errno == EWOULDBLOCK ||  \
                                    errno == EINPROGRESS || errno == EINTR)))
+    
+#pragma GCC diagnostic pop
 
 #endif /* PT_H */

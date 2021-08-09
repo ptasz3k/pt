@@ -154,6 +154,11 @@ static void pt_loop_without_braces(struct pt *pt, int *state, int timeout,
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdangling-else"
 #endif
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdangling-else"
+#endif
+
   if (1)
     pt_loop(pt, !timeout)
       if (ready)
@@ -162,6 +167,9 @@ static void pt_loop_without_braces(struct pt *pt, int *state, int timeout,
 	(*state)++;
 #ifdef __clang__
 #pragma clang diagnostic pop
+#endif
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
 #endif
   // clang-format on
   *state = -1;
